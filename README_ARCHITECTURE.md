@@ -6,7 +6,7 @@ A clean, layered architecture implementation for monitoring MikroTik routers usi
 
 This project follows **Clean Architecture** principles with clear separation of concerns across four distinct layers:
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                 Presentation Layer                          │
 │  ┌─────────────────────────────────────────────────────────┐  │
@@ -44,7 +44,7 @@ This project follows **Clean Architecture** principles with clear separation of 
 
 ## 📁 Project Structure
 
-```
+```text
 src/
 ├── domain/                    # 🔷 Domain Layer
 │   ├── entities/              # Core business entities
@@ -75,11 +75,13 @@ src/
 ## 🚀 Quick Start
 
 1. **Install dependencies**:
+
    ```bash
    uv sync
    ```
 
 2. **Run the application**:
+
    ```bash
    python main.py
    ```
@@ -97,6 +99,7 @@ await controller.get_system_resource('192.168.88.1', 'your_username', 'your_pass
 ## 🏛️ Layer Details
 
 ### 🔷 Domain Layer
+
 - **Purpose**: Contains core business logic and entities
 - **Dependencies**: None (innermost layer)
 - **Key Components**:
@@ -105,6 +108,7 @@ await controller.get_system_resource('192.168.88.1', 'your_username', 'your_pass
   - Repository interfaces defining contracts for data access
 
 ### 🔶 Application Layer
+
 - **Purpose**: Orchestrates business use cases
 - **Dependencies**: Domain layer only
 - **Key Components**:
@@ -113,6 +117,7 @@ await controller.get_system_resource('192.168.88.1', 'your_username', 'your_pass
   - Request/Response DTOs for clean data transfer
 
 ### 🔴 Infrastructure Layer
+
 - **Purpose**: Implements external concerns (databases, APIs, etc.)
 - **Dependencies**: Domain layer interfaces
 - **Key Components**:
@@ -121,6 +126,7 @@ await controller.get_system_resource('192.168.88.1', 'your_username', 'your_pass
   - `InMemoryRouterInfoRepository`: Simple in-memory storage
 
 ### 🔵 Presentation Layer
+
 - **Purpose**: User interface and application entry points
 - **Dependencies**: Application layer
 - **Key Components**:
@@ -138,6 +144,7 @@ await controller.get_system_resource('192.168.88.1', 'your_username', 'your_pass
 ## 🔍 Business Logic Examples
 
 ### Rich Domain Entities
+
 ```python
 # Domain entity with business logic
 system_resource = SystemResource(...)
@@ -152,6 +159,7 @@ if system_resource.is_cpu_critical:
 ```
 
 ### Use Case Orchestration
+
 ```python
 # Application layer orchestrates business flow
 async def execute(self, request: SystemResourceRequest) -> SystemResourceResponse:
