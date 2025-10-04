@@ -1,14 +1,14 @@
 import sentry_sdk
-from app.lib.mikrotik_routeros.application.use_cases import GetSystemResourceUseCase
-from app.lib.mikrotik_routeros.infrastructure.mikrotik import (
-    MikroTikSystemResourceRepository,
-)
-from app.lib.mikrotik_routeros.infrastructure.mikrotik.types import (
-    MikrotikConnecitonConfig,
-)
 from dotenv import load_dotenv
 from fastapi import FastAPI
 
+from app.lib.routeros.application.use_cases import GetSystemResourceUseCase
+from app.lib.routeros.infrastructure.mikrotik import (
+    MikroTikSystemResourceRepository,
+)
+from app.lib.routeros.infrastructure.mikrotik.types import (
+    MikrotikConnecitonConfig,
+)
 from app.settings import Settings
 
 load_dotenv()  # Load environment variables from .env file
