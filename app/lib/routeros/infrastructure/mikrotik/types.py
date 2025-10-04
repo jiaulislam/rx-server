@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class MikrotikConnecitonConfig:
+class MikrotikConnectionConfig:
     host: str
     username: str
     password: str
