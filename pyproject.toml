@@ -38,7 +38,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.isort]
-known-third-party = ["fastapi", "pydantic", "devtools", "dotenv", "routeros_api", "sentry_sdk"]
+known-third-party = ["fastapi", "pydantic", "devtools", "dotenv", "routeros_api", "sentry_sdk", "starlette"]
 
 [tool.ruff.lint.pyupgrade]
 # Preserve types, even if a file imports `from __future__ import annotations`.

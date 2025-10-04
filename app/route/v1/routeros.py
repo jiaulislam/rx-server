@@ -14,7 +14,7 @@ settings = Settings()  # pyright: ignore
 router = APIRouter(prefix="/v1/routeros", tags=["routeros"])
 
 
-@router.get("/mikrotik/system-resource")
+@router.get("/system-resource")
 async def get_mikrotik_resource():
     mikrotik_connection_config = MikrotikConnectionConfig(
         host=settings.routeros.host,
