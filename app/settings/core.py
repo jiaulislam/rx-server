@@ -26,6 +26,7 @@ class Settings(BaseSettings):
     )
 
     allowed_hosts: list[str] = Field(default_factory=list)
+    sentry_dsn: str = ""
 
     routeros: RouterOSConfig = RouterOSConfig()
 

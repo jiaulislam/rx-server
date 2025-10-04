@@ -17,7 +17,7 @@ settings = Settings()  # pyright: ignore
 
 
 sentry_sdk.init(
-    dsn="",
+    dsn=settings.sentry_dsn,
     send_default_pii=True,
 )
 
