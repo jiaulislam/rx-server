@@ -1,25 +1,48 @@
-"""
-Main entry point for the MikroTik Router Monitoring System.
+import sentry_sdk
+from app.lib.mikrotik_routeros.application.use_cases import GetSystemResourceUseCase
+from app.lib.mikrotik_routeros.infrastructure.mikrotik import (
+    MikroTikSystemResourceRepository,
+)
+from app.lib.mikrotik_routeros.infrastructure.mikrotik.types import (
+    MikrotikConnecitonConfig,
+)
+from dotenv import load_dotenv
+from fastapi import FastAPI
 
-This application demonstrates a clean layered architecture with:
-- Domain Layer: Core business entities and repository interfaces
-- Application Layer: Use cases and business logic orchestration  
-- Infrastructure Layer: External service implementations (MikroTik API)
-- Presentation Layer: Controllers and user interface
-"""
+from app.settings import Settings
 
-import asyncio
-from src.presentation.controllers import main as presentation_main
+load_dotenv()  # Load environment variables from .env file
 
-
-def main():
-    """Main entry point using layered architecture."""
-    print("🚀 Starting MikroTik Router Monitoring System")
-    print("="*60)
-    
-    # Run the presentation layer main function
-    asyncio.run(presentation_main())
+settings = Settings()  # pyright: ignore
 
 
-if __name__ == "__main__":
-    main()
+sentry_sdk.init(
+    dsn="https://ff9e5a10bf4538ee255397538fc9d198@o1396988.ingest.us.sentry.io/4508085957623808",
+    # Add data like request headers and IP for users, if applicable;
+    # see https://docs.sentry.io/platforms/python/data-management/data-collected/ for more info
+    send_default_pii=True,
+)
+
+app = FastAPI(title=settings.app_name, debug=settings.debug)
+
+
+@app.get("/")
+async def read_root():
+    return {"message": f"Welcome to the {settings.app_name}!"}
+
+
+@app.get("/mikrotik/system-resource")
+async def get_mikrotik_resource():
+    mikrotik_connection_config = MikrotikConnecitonConfig(
+        host=settings.routeros.host,
+        username=settings.routeros.username,
+        password=settings.routeros.password,
+        port=settings.routeros.port,
+    )
+    use_case = GetSystemResourceUseCase(
+        system_resource_repo=MikroTikSystemResourceRepository(
+            mikrotik_connection_config
+        ),
+    )
+    response = await use_case.execute(mikrotik_connection_config)
+    return response

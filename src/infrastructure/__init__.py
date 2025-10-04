@@ -1,1 +1,0 @@
-# Infrastructure layer - External services and data access implementations
