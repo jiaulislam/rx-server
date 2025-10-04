@@ -13,7 +13,7 @@ from devtools import debug  # ignore: isort:skip
 
 load_dotenv()  # Load environment variables from .env file
 
-settings = Settings()  # pyright: ignore
+settings = Settings()
 
 
 sentry_sdk.init(
@@ -28,16 +28,10 @@ app = FastAPI(title=settings.app_name, debug=settings.debug)
 app.add_middleware(ProcessTimeMiddleware)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=[
-        "X-Requested-With",
-        "X-Process-Time",
-        "Content-Type",
-        "Accept",
-        "Origin",
-    ],
+    allow_origins=settings.allow_cors_origins,
+    allow_credentials=settings.allow_credentials,
+    allow_methods=settings.allowed_methods,
+    allow_headers=settings.allowed_headers,
 )
 app.add_middleware(
     TrustedHostMiddleware,
