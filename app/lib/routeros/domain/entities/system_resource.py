@@ -1,8 +1,7 @@
-from dataclasses import dataclass
+from pydantic import BaseModel
 
 
-@dataclass
-class SystemResource:
+class SystemResource(BaseModel):
     """Core domain entity representing system resource information."""
 
     uptime: str
@@ -13,7 +12,7 @@ class SystemResource:
     total_memory: int
     cpu: str
     cpu_count: int
-    cpu_frequency: str
+    cpu_frequency: float
     cpu_load: int
     free_hdd_space: int
     total_hdd_space: int

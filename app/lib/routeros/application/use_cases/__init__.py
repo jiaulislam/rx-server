@@ -9,16 +9,6 @@ from app.lib.routeros.types import ConnectionConfig
 
 
 @dataclass
-class SystemResourceRequest:
-    """Request object for system resource operations."""
-
-    host: str
-    username: str
-    password: str
-    port: int = 8728
-
-
-@dataclass
 class SystemResourceResponse:
     """Response object for system resource operations."""
 
@@ -74,7 +64,7 @@ class MonitorSystemHealthUseCase:
     def __init__(self, system_resource_repo: SystemResourceRepository):
         self._system_resource_repo = system_resource_repo
 
-    async def execute(self, request: SystemResourceRequest) -> SystemResourceResponse:
+    async def execute(self, request: ConnectionConfig) -> SystemResourceResponse:
         """
         Execute system health monitoring.
 
@@ -85,6 +75,14 @@ class MonitorSystemHealthUseCase:
             SystemResourceResponse with health analysis
         """
         try:
+            # Check connection first
+            is_connected = await self._system_resource_repo.check_connection()
+            if not is_connected:
+                return SystemResourceResponse(
+                    success=False,
+                    error_message=f"Unable to connect to router at {request.host}",
+                )
+
             system_resource = await self._system_resource_repo.get_system_resource()
             if not system_resource:
                 return SystemResourceResponse(

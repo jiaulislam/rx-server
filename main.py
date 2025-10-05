@@ -4,9 +4,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 
+from app.core import Settings
+from app.core.middleware import ProcessTimeMiddleware
 from app.route.v1 import routeros_router  # noqa
-from app.settings import Settings
-from app.settings.middleware import ProcessTimeMiddleware
 
 from devtools import debug  # ignore: isort:skip
 
@@ -39,7 +39,7 @@ app.add_middleware(
 )
 
 for route in routes:
-    app.include_router(route)
+    app.include_router(route, prefix="/api")
 
 
 debug(settings)

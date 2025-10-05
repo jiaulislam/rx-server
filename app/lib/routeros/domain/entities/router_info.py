@@ -1,9 +1,9 @@
-from dataclasses import dataclass
 from datetime import datetime
 
+from pydantic import BaseModel
 
-@dataclass
-class RouterInfo:
+
+class RouterInfo(BaseModel):
     """Domain entity representing router information."""
 
     host: str
