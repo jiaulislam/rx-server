@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "fastapi[standard]>=0.118.0",
+    "loguru>=0.7.3",
     "pydantic-settings>=2.11.0",
     "python-dotenv>=1.1.1",
     "routeros-api>=0.21.0",
@@ -38,7 +39,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.isort]
-known-third-party = ["fastapi", "pydantic", "devtools", "dotenv", "routeros_api", "sentry_sdk", "starlette"]
+known-third-party = ["fastapi", "pydantic", "devtools", "dotenv", "routeros_api", "sentry_sdk", "starlette", "loguru"]
 
 [tool.ruff.lint.pyupgrade]
 # Preserve types, even if a file imports `from __future__ import annotations`.

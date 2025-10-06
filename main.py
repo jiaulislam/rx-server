@@ -5,11 +5,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 
 from app.core import Settings
+from app.core.logging_config import setup_logging
 from app.core.middleware import ProcessTimeMiddleware
 from app.route.v1 import routeros_router  # noqa
 
-from devtools import debug  # ignore: isort:skip
-
+logger = setup_logging()  # Initialize logging
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -40,9 +40,6 @@ app.add_middleware(
 
 for route in routes:
     app.include_router(route, prefix="/api")
-
-
-debug(settings)
 
 
 @app.get("/")

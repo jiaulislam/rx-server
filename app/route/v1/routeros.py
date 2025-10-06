@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from loguru import logger
 
 from app.core import Settings
 from app.core.structure import BaseResponse
@@ -28,6 +29,10 @@ async def get_mikrotik_resource():
         system_resource_repo=MikroTikSystemResourceRepository(
             mikrotik_connection_config
         ),
+    )
+    logger.info(
+        "Fetching system resource from MikroTik router at {}",
+        mikrotik_connection_config.host,
     )
     response = await use_case.execute(mikrotik_connection_config)
     return response
