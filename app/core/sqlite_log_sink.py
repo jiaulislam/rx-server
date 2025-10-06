@@ -37,7 +37,8 @@ class SQLiteLogSink:
         while True:
             try:
                 log_entry = self.queue.get(timeout=1)
-                self._insert_log(**log_entry)
+                if log_entry:
+                    self._insert_log(**log_entry)
             except Empty:
                 continue
 
