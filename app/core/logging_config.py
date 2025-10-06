@@ -8,8 +8,11 @@ from app.core.sqlite_log_sink import SQLiteLogSink
 def setup_logging():
     logger.remove()
 
-    logger.add(sys.stdout, format="{time:HH:mm:ss} | {level} | {message}", level="INFO")
-
+    logger.add(
+        sys.stdout,
+        format="{time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {message} | {name}:{function}:{line}",
+        level="INFO",
+    )
     # SQLite log sink
     sqlite_sink = SQLiteLogSink()
     logger.add(sqlite_sink, serialize=False, level="INFO")
